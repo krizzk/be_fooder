@@ -67,35 +67,65 @@ export const getUserById = async (request: Request, response: Response) => {
     }
 }
 
+// export const createUser = async (request: Request, response: Response) => {
+//     try {
+//         /** get requested data (data has been sent from request) */
+//         const { name, email, password, role } = request.body
+//         const uuid = uuidv4()
+
+//         /** variable filename use to define of uploaded file name */
+//         let filename = ""
+//         if (request.file) filename = request.file.filename /** get file name of uploaded file */
+
+//         /** process to save new user */
+//         const newUser = await prisma.user.create({
+//             data: { uuid, name, email, password: md5(password), role, profile_picture: filename }
+//         })
+
+//         return response.json({
+//             status: true,
+//             data: newUser,
+//             message: `New user has created`
+//         }).status(200)
+//     } catch (error) {
+//         return response
+//             .json({
+//                 status: false,
+//                 message: `There is an error. ${error}`
+//             })
+//             .status(400)
+//     }
+// }
+
 export const createUser = async (request: Request, response: Response) => {
     try {
         /** get requested data (data has been sent from request) */
-        const { name, email, password, role } = request.body
-        const uuid = uuidv4()
+        const { name, email, password, role } = request.body;
+        const uuid = uuidv4();
 
         /** variable filename use to define of uploaded file name */
-        let filename = ""
-        if (request.file) filename = request.file.filename /** get file name of uploaded file */
+        let filename = "";
+        if (request.file) filename = request.file.filename; /** get file name of uploaded file */
 
         /** process to save new user */
         const newUser = await prisma.user.create({
             data: { uuid, name, email, password: md5(password), role, profile_picture: filename }
-        })
+        });
 
         return response.json({
             status: true,
             data: newUser,
             message: `New user has created`
-        }).status(200)
+        }).status(200);
     } catch (error) {
         return response
             .json({
                 status: false,
                 message: `There is an error. ${error}`
             })
-            .status(400)
+            .status(400);
     }
-}
+};
 
 export const updateUser = async (request: Request, response: Response) => {
     try {

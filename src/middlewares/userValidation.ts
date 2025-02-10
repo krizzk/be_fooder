@@ -54,7 +54,7 @@ export const verifyEditUser = (request: Request, response: Response, next: NextF
     }
     return next()
 }
-
+    
 export const verifyAuthentication = (request: Request, response: Response, next: NextFunction) => {
     /** validate a request body and grab error if exist */
     const { error } = authSchema.validate(request.body, { abortEarly: false })
