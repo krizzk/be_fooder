@@ -148,3 +148,42 @@ export const deleteMenu = async (request: Request, response: Response) => {
             .status(400)
     }
 }
+
+
+//GET MENU BY ID
+export const getMenuById = async (request: Request, response: Response) => {
+    try {
+        /** Ambil data id dari request */
+        const { id } = request.params;
+
+        /** Proses untuk mendapatkan menu berdasarkan ID */
+        const menu = await prisma.menu.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        });
+
+        /** Periksa apakah menu ada */
+        if (!menu) {
+            return response
+                .json({
+                    status: false,
+                    message: `Menu dengan ID ${id} tidak ditemukan`
+                })
+                .status(404);
+        }
+
+        return response.json({
+            status: true,
+            data: menu,
+            message: `Menu telah berhasil diambil`
+        }).status(200);
+    } catch (error) {
+        return response
+            .json({
+                status: false,
+                message: `Terjadi kesalahan: ${error}`
+            })
+            .status(400);
+    }
+};

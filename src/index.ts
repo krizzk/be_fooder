@@ -51,7 +51,7 @@ app.use(`/order`, OrderRoute)
 app.use(`/report`, ReportRoute)
 
 // Set public folder as static
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));  
 
 app.listen(PORT, () => {
     console.log(`[server]: Server is running at http://localhost:${PORT}`)

@@ -62,10 +62,16 @@ export const getFavourite = async (request: Request, response: Response) => {
         });
 
         // Mengubah objek menjadi array untuk dikirim sebagai respons
-        const result = Object.entries(menuCount).map(([name, count]) => ({
-            name,
-            count,
-        }));
+        const result = Object.keys(menuCount).map(menuName => {
+            const menu = orderLists.find(orderList => orderList.Menu?.name === menuName)?.Menu;
+            return {
+                name: menuName,
+                count: menuCount[menuName],
+                picture: menu?.picture,
+                price: menu?.price,
+                category: menu?.category,
+            };
+        });
 
         return response.json({
             status: true,
